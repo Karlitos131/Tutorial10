@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Tutorial10.Data;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -16,37 +22,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/jobs", () => {
-    
-});
-
-app.MapGet("/api/departments", () => {
-    
-});
-
-app.MapGet("/api/employees", () =>
-{
-    
-});
-
-app.MapGet("/api/employees/{id}", (int id) =>
-{
-    
-});
-
-app.MapPost("/api/employees", () =>
-{
-    
-});
-
-app.MapPut("/api/employees/{id}", (int id) =>
-{
-    
-});
-
-app.MapDelete("/api/employees/{id}", (int id) =>
-{
-    
-});
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
