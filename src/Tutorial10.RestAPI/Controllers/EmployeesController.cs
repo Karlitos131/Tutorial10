@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tutorial10.Data;
 using Tutorial10.RestAPI.DTOs.Device;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tutorial10.RestAPI.Controllers;
 
@@ -16,6 +17,7 @@ public class EmployeesController : ControllerBase
         _context = context;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<IActionResult> GetEmployees()
     {
@@ -31,6 +33,7 @@ public class EmployeesController : ControllerBase
         return Ok(employees);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetEmployeeById(int id)
     {

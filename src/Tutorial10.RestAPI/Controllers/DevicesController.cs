@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using Tutorial10.Data;
 using Tutorial10.Data.Models;
 using Tutorial10.RestAPI.DTOs.Device;
@@ -18,6 +19,7 @@ public class DevicesController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetDevices()
     {
         var devices = await _context.Devices
@@ -28,6 +30,7 @@ public class DevicesController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<IActionResult> GetDeviceById(int id)
     {
         var device = await _context.Devices
@@ -61,6 +64,7 @@ public class DevicesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateDevice([FromBody] DeviceCreateDto dto)
     {
         if (!ModelState.IsValid)
@@ -85,6 +89,7 @@ public class DevicesController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateDevice(int id, [FromBody] DeviceCreateDto dto)
     {
         if (!ModelState.IsValid)
@@ -109,6 +114,7 @@ public class DevicesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteDevice(int id)
     {
         var device = await _context.Devices.FindAsync(id);

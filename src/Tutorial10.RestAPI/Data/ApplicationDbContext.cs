@@ -14,6 +14,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Position> Positions => Set<Position>();
     public DbSet<DeviceType> DeviceTypes => Set<DeviceType>();
     public DbSet<DeviceEmployee> DeviceEmployees => Set<DeviceEmployee>();
+    public DbSet<Account> Accounts => Set<Account>();
+    public DbSet<Role> Roles => Set<Role>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
